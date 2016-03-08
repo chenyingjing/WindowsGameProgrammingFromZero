@@ -257,7 +257,7 @@ HRESULT Objects_Init(HWND hwnd)
 	// ÉèÖÃ¹âÕÕ
 	Light_Set(g_pd3dDevice, 1);
 	g_pd3dDevice->SetRenderState(D3DRS_LIGHTING, true);
-	g_pd3dDevice->SetRenderState(D3DRS_NORMALIZENORMALS, true);
+	//g_pd3dDevice->SetRenderState(D3DRS_NORMALIZENORMALS, true);
 	g_pd3dDevice->SetRenderState(D3DRS_SPECULARENABLE, true);
 
 
@@ -302,22 +302,22 @@ void Direct3D_Render(HWND hwnd)
 	D3DXMatrixRotationY(&R, timeGetTime() / 1440.0f);
 
 	D3DXMatrixTranslation(&g_WorldMatrix[0], 3.0f, -3.0f, 0.0f);
-	g_WorldMatrix[0] = g_WorldMatrix[0] * R;
+	//g_WorldMatrix[0] = g_WorldMatrix[0] * R;
 	g_pd3dDevice->SetTransform(D3DTS_WORLD, &g_WorldMatrix[0]);
 	g_cube->DrawSubset(0);
 
 	D3DXMatrixTranslation(&g_WorldMatrix[1], -3.0f, -3.0f, 0.0f);
-	g_WorldMatrix[1] = g_WorldMatrix[1] * R;
+	//g_WorldMatrix[1] = g_WorldMatrix[1] * R;
 	g_pd3dDevice->SetTransform(D3DTS_WORLD, &g_WorldMatrix[1]);
 	g_teapot->DrawSubset(0);
 
 	D3DXMatrixTranslation(&g_WorldMatrix[2], 3.0f, 3.0f, 0.0f);
-	g_WorldMatrix[2] = g_WorldMatrix[2] * R;
+	//g_WorldMatrix[2] = g_WorldMatrix[2] * R;
 	g_pd3dDevice->SetTransform(D3DTS_WORLD, &g_WorldMatrix[2]);
 	g_Sphere->DrawSubset(0);
 
 	D3DXMatrixTranslation(&g_WorldMatrix[3], -3.0f, 3.0f, 0.0f);
-	g_WorldMatrix[3] = g_WorldMatrix[3] * R;
+	//g_WorldMatrix[3] = g_WorldMatrix[3] * R;
 	g_pd3dDevice->SetTransform(D3DTS_WORLD, &g_WorldMatrix[3]);
 	g_torus->DrawSubset(0);
 
@@ -395,11 +395,11 @@ VOID Light_Set(LPDIRECT3DDEVICE9 pd3dDevice, UINT nType)
 		light.Ambient = D3DXCOLOR(0.6f, 0.6f, 0.6f, 1.0f);
 		light.Diffuse = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
 		light.Specular = D3DXCOLOR(0.3f, 0.3f, 0.3f, 1.0f);
-		light.Position = D3DXVECTOR3(0.0f, 200.0f, 0.0f);
+		light.Position = D3DXVECTOR3(-200.0f, 0.0f, 0.0f);
 		light.Attenuation0 = 1.0f;
 		light.Attenuation1 = 0.0f;
 		light.Attenuation2 = 0.0f;
-		light.Range = 300.0f;
+		light.Range = 203.0f;
 		break;
 	case 2:
 		light.Type = D3DLIGHT_DIRECTIONAL;
