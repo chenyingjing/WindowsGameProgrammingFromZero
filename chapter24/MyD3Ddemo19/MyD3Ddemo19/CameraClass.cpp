@@ -55,10 +55,22 @@ VOID CameraClass::SetTargetPosition(D3DXVECTOR3 * pLookat)
 	}
 	m_vLookVector = m_vTargetPosition - m_vCameraPosition;
 	D3DXVec3Normalize(&m_vLookVector, &m_vLookVector);
+
+	D3DXVECTOR3 upVector = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
+	D3DXVECTOR3 zeroVector = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	D3DXVec3Cross(&m_vRightVector, &upVector, &m_vLookVector);
+	if (m_vRightVector == zeroVector)
+	{
+		m_vRightVector = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
+	}
+	D3DXVec3Normalize(&m_vRightVector, &m_vRightVector);
 	D3DXVec3Cross(&m_vUpVector, &m_vLookVector, &m_vRightVector);
 	D3DXVec3Normalize(&m_vUpVector, &m_vUpVector);
-	D3DXVec3Cross(&m_vRightVector, &m_vUpVector, &m_vLookVector);
-	D3DXVec3Normalize(&m_vRightVector, &m_vRightVector);
+
+	//D3DXVec3Cross(&m_vUpVector, &m_vLookVector, &m_vRightVector);
+	//D3DXVec3Normalize(&m_vUpVector, &m_vUpVector);
+	//D3DXVec3Cross(&m_vRightVector, &m_vUpVector, &m_vLookVector);
+	//D3DXVec3Normalize(&m_vRightVector, &m_vRightVector);
 }
 
 VOID CameraClass::SetCameraPosition(D3DXVECTOR3 * pVector)
@@ -79,9 +91,9 @@ VOID CameraClass::SetViewMatrix(D3DXMATRIX * pMatrix)
 	}
 	m_pd3dDevice->SetTransform(D3DTS_VIEW, &m_matView);
 
-	m_vRightVector = D3DXVECTOR3(m_matView._11, m_matView._12, m_matView._13);
-	m_vUpVector = D3DXVECTOR3(m_matView._21, m_matView._22, m_matView._23);
-	m_vLookVector = D3DXVECTOR3(m_matView._31, m_matView._32, m_matView._33);
+	//m_vRightVector = D3DXVECTOR3(m_matView._11, m_matView._12, m_matView._13);
+	//m_vUpVector = D3DXVECTOR3(m_matView._21, m_matView._22, m_matView._23);
+	//m_vLookVector = D3DXVECTOR3(m_matView._31, m_matView._32, m_matView._33);
 }
 
 VOID CameraClass::SetProjMatrix(D3DXMATRIX * pMatrix)

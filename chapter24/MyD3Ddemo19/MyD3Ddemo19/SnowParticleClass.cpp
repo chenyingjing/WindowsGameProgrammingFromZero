@@ -7,7 +7,7 @@ SnowParticleClass::SnowParticleClass(LPDIRECT3DDEVICE9 pd3dDevice)
 {
 	m_pd3dDevice = pd3dDevice;
 	m_pVertexBuffer = NULL;
-	for (size_t i = 0; i < 5; i++)
+	for (size_t i = 0; i < 6; i++)
 	{
 		m_pTexture[i] = NULL;
 	}
@@ -16,7 +16,7 @@ SnowParticleClass::SnowParticleClass(LPDIRECT3DDEVICE9 pd3dDevice)
 SnowParticleClass::~SnowParticleClass()
 {
 	SAFE_RELEASE(m_pVertexBuffer);
-	for (size_t i = 0; i < 5; i++)
+	for (size_t i = 0; i < 6; i++)
 	{
 		SAFE_RELEASE(m_pTexture[i]);
 	}
@@ -28,7 +28,8 @@ HRESULT SnowParticleClass::InitSnowParticle()
 
 	for (size_t i = 0; i < PARTICLE_NUMBER; i++)
 	{
-		m_Snows[i].x = float(rand() % SNOW_SYSTEM_WIDTH_Z - SNOW_SYSTEM_WIDTH_Z / 2);
+		m_Snows[i].x = float(rand() % SNOW_SYSTEM_LENGTH_X - SNOW_SYSTEM_LENGTH_X / 2);
+		m_Snows[i].z = float(rand() % SNOW_SYSTEM_WIDTH_Z - SNOW_SYSTEM_WIDTH_Z / 2);
 		m_Snows[i].y = float(rand() % SNOW_SYSTEM_HEIGHT_Y);
 		m_Snows[i].RotationY = (rand() % 100) / 50.0f * D3DX_PI;
 		m_Snows[i].RotationX = (rand() % 100) / 50.0f * D3DX_PI;

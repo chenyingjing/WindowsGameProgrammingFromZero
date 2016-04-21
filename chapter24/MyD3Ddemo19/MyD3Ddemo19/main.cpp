@@ -234,7 +234,7 @@ HRESULT Direct3D_Init(HWND hwnd)
 	d3dpp.AutoDepthStencilFormat     = D3DFMT_D24S8;
 	d3dpp.Flags                      = 0;
 	d3dpp.FullScreen_RefreshRateInHz = 0;
-	//d3dpp.PresentationInterval       = D3DPRESENT_INTERVAL_IMMEDIATE;
+	d3dpp.PresentationInterval       = D3DPRESENT_INTERVAL_IMMEDIATE;
 
 	//--------------------------------------------------------------------------------------
 	// 【Direct3D初始化四步曲之四，创设备】：创建Direct3D设备接口
@@ -326,8 +326,15 @@ HRESULT Objects_Init(HWND hwnd)
 	g_pd3dDevice->SetRenderState(D3DRS_SPECULARENABLE, true);
 
 	g_pCamera = new CameraClass(g_pd3dDevice);
+
 	g_pCamera->SetCameraPosition(&D3DXVECTOR3(0.0f, 1400.0f, -1800.0f));
 	g_pCamera->SetTargetPosition(&D3DXVECTOR3(0.0f, 1200.0f, 0.0f));
+
+	//g_pCamera->SetCameraPosition(&D3DXVECTOR3(0.0f, 1400.0f, -1800.0f));
+	//g_pCamera->SetTargetPosition(&D3DXVECTOR3(0.0f, 1400.0f, 0.0f));
+
+	//g_pCamera->SetCameraPosition(&D3DXVECTOR3(0.0f, 14000.0f, 0.0f));
+	//g_pCamera->SetTargetPosition(&D3DXVECTOR3(0.0f, 00.0f, 0.0f));
 	g_pCamera->SetViewMatrix();
 	g_pCamera->SetProjMatrix();
 
