@@ -305,7 +305,7 @@ HRESULT Objects_Init(HWND hwnd)
 	g_pCamera = new CameraClass(g_pd3dDevice);
 
 	g_pCamera->SetCameraPosition(&D3DXVECTOR3(0.0f, 1200.0f, -2100.0f));
-	g_pCamera->SetTargetPosition(&D3DXVECTOR3(0.0f, 700.0f, 0.0f));
+	g_pCamera->SetTargetPosition(&D3DXVECTOR3(0.0f, 1700.0f, 0.0f));
 
 	g_pCamera->SetViewMatrix();
 	g_pCamera->SetProjMatrix();
@@ -362,25 +362,26 @@ void Direct3D_Render(HWND hwnd, FLOAT fTimeDelta)
 	D3DXMATRIX mTrans1, mTrans2, mTrans3, mTrans4;
 	D3DXMATRIX mFinal1, mFinal2, mFinal3, mFinal4 ;
 
-	D3DXMatrixTranslation(&mTrans1, 50.0f, 400.0f, 0.0f);
+	D3DXMatrixTranslation(&mTrans1, 0.0f, 1200.0f, 0.0f);
 	D3DXMatrixScaling(&mScal1, 3.0f, 3.0f, 3.0f);
-	mFinal1 = mTrans1 * mScal1 * g_matWorld;
+	mFinal1 = g_matWorld * mScal1 *  mTrans1;
 	g_pd3dDevice->SetTransform(D3DTS_WORLD, &mFinal1);
 	g_pXFileModel1->RenderModel();
 
-	D3DXMatrixTranslation(&mTrans2, 200.0f, 0.0f, 0.0f);
-	mFinal2 = mTrans2 * mFinal1;
+	D3DXMatrixTranslation(&mTrans2, 600.0f, 0.0f, 0.0f);
+	mFinal2 = mFinal1 * mTrans2;
 	g_pd3dDevice->SetTransform(D3DTS_WORLD, &mFinal2);
 	g_pXFileModel2->RenderModel();
 
-	D3DXMatrixTranslation(&mTrans3, -200.0f, 0.0f, 0.0f);
-	mFinal3 = mTrans3 * mFinal1;
+	D3DXMatrixTranslation(&mTrans3, -600.0f, 0.0f, 0.0f);
+	mFinal3 = mFinal1 * mTrans3;
 	g_pd3dDevice->SetTransform(D3DTS_WORLD, &mFinal3);
 	g_pXFileModel3->RenderModel();
 
-	D3DXMatrixScaling(&mScal2, 10.0f, 10.0f, 10.0f);
-	D3DXMatrixTranslation(&mTrans4, 10.0f, 20.0f, 250.0f);
-	mFinal4 = mTrans4 * mScal2 * mFinal1;
+	float s = 10.0f;
+	D3DXMatrixScaling(&mScal2, s, s, s);
+	D3DXMatrixTranslation(&mTrans4, 0.0f, 1500.0f, 1500.0f);
+	mFinal4 = g_matWorld * mScal2 * mTrans4;
 	g_pd3dDevice->SetTransform(D3DTS_WORLD, &mFinal4);
 	g_pXFileModel4->RenderModel();
 
@@ -481,29 +482,30 @@ void Direct3D_Update(HWND hwnd, FLOAT fTimeDelta)
 		g_pd3dDevice->SetSamplerState(0, D3DSAMP_ADDRESSV, D3DTADDRESS_BORDER);
 	}
 
+	float k = 3.0f;
 	if (g_pDInput->IsKeyDown(DIK_A))
 	{
-		g_pCamera->MoveAlongRightVec(-0.3f);
+		g_pCamera->MoveAlongRightVec(-1.0f * k);
 	}
 	if (g_pDInput->IsKeyDown(DIK_D))
 	{
-		g_pCamera->MoveAlongRightVec(0.3f);
+		g_pCamera->MoveAlongRightVec(1.0f * k);
 	}
 	if (g_pDInput->IsKeyDown(DIK_W))
 	{
-		g_pCamera->MoveAlongLookVec(0.3f);
+		g_pCamera->MoveAlongLookVec(1.0f * k);
 	}
 	if (g_pDInput->IsKeyDown(DIK_S))
 	{
-		g_pCamera->MoveAlongLookVec(-0.3f);
+		g_pCamera->MoveAlongLookVec(-1.0f * k);
 	}
 	if (g_pDInput->IsKeyDown(DIK_R))
 	{
-		g_pCamera->MoveAlongUpVec(0.3f);
+		g_pCamera->MoveAlongUpVec(1.0f * k);
 	}
 	if (g_pDInput->IsKeyDown(DIK_F))
 	{
-		g_pCamera->MoveAlongUpVec(-0.3f);
+		g_pCamera->MoveAlongUpVec(-1.0f * k);
 	}
 
 	if (g_pDInput->IsKeyDown(DIK_LEFT))  g_pCamera->RotationUpVec(-0.003f);
